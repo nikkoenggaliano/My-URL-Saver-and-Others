@@ -53,6 +53,7 @@ class UrlController extends Controller
             if (filter_var($url, FILTER_VALIDATE_URL)){ //validate url input
 
                 //if valid
+                
 
             }else{
 
