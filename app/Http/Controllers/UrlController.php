@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\UrlModel;
 use Illuminate\Http\Request;
 use Validator;
+use Auth;
 
 class UrlController extends Controller
 {
@@ -32,34 +33,70 @@ class UrlController extends Controller
             'required'  => ':attribute Tidak boleh kosong sahabat!',
             'judul.min' => 'Panjang data minimal untuk <b>:attribute</b> Form adalah 5',
             'judul.max' => 'Panjang data maximum untuk <b>:attribute</b> Form adalah 25',
-            'link.min'  => 'Panjang data minimal untuk <b>:attribute</b> Form adalah 7'
+            'link.min'  => 'Panjang data minimal untuk <b>:attribute</b> Form adalah 7',
+            'link.*.min' => 'Panjang setiap form Link harus 7 data'
         );
 
         $rules = array(
             'judul' => 'required|min:5|max:25',
-            'link'  => 'required|min:7',
+            'link'  => 'required|array',
+            'link.*'  => 'required|min:7',
             'desc'  => 'required|max:100',
             'is_public' => 'required'
         );
 
+        
 
         $valid = Validator::make($request->post(), $rules, $messages);
         if($valid->fails()){
             $msg = $valid->errors()->first();
             return redirect()->route('user_add_link')->with('error', $msg);
         }else{
-        
-            $url = $request->link;
-            if (filter_var($url, FILTER_VALIDATE_URL)){ //validate url input
+            $is_url = True;
+            
+            foreach($request->link as $uri){
 
-                //if valid
-                
+                if (!filter_var($uri, FILTER_VALIDATE_URL)){ //validate url input
+                    $is_url = False;
+                }
+
+            }
+
+            if($is_url){
+
+                $uid   = Auth::user()->id;
+                $judul = $request->judul;
+                $link  = json_encode($request->link);
+                $desc  = $request->desc;
+                $is_public = $request->is_public === 'on' ? 1 : 0;
+
+
+                $insert = UrlModel::create([
+                    'uid' => $uid,
+                    'name' => $judul,
+                    'desc' => $desc,
+                    'url'  => $link,
+                    'public' => $is_public
+                ]);
+
+                // dd($insert);
+
+                if($insert){
+
+                    return redirect()->route('user_add_link')->with('success', $judul." Berhasil ditambahkan di Database!");
+
+                }else{
+
+                    return redirect()->route('user_add_link')->with('error', $judul." Tidak berhasil ditambahkan, sepertinya ada masalah pada Sistim kami :(");
+
+                }
 
             }else{
 
-                //if not valid
+                return redirect()->route('user_add_link')->with('error', 'Salah satu form dideteksi bukan URL valid.<br>Hubungi kami jika ini sebuah kesalahan!');
 
             }
+
 
         }
         

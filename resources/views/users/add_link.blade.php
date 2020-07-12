@@ -20,9 +20,13 @@
 
 						<div class="panel-body">
 							@if (session()->has('success'))
-								<p class="content-group-lg">{{session('error')}}</p>
+								<div class="alert alert-primary" role="alert">
+								  {{session('success')}}
+								</div>
 							@elseif(session()->has('error'))
-								<p class="content-group-lg" style="color: red;">{!! session('error') !!}</p>
+								<div class="alert alert-danger" role="alert">
+								  {!! session('error') !!}
+								</div>
 							@endif
 
 
@@ -38,10 +42,16 @@
 										</div>
 									</div>
 
-									<div class="form-group">
-										<label class="control-label col-lg-2">Link</label>
-										<div class="col-lg-10">
-											<input type="text" name="link" class="form-control" placeholder="Masukan Link dengan http/https"> 
+									<div class="form-group" >
+										<label class="control-label col-lg-2">Masukan URL</label>
+										<div class="col-lg-10" id="dinamic_field">
+											<div class="input-group">
+												<input type="text" name="link[]" class="form-control" placeholder="Masukan URL with http/https">
+												<span class="input-group-btn">
+													<button class="btn bg-teal" type="button" name="add" id="add">Tambah</button>
+												</span>
+											</div>
+
 										</div>
 									</div>
 
@@ -69,5 +79,29 @@
 						</div>
 					</div>
 					<!-- /form horizontal -->
+
+<script type="text/javascript">
+	var i = 1;
+	
+	$(document).ready(function(){
+		alert(123123123123);
+	});
+
+	$('#add').click(function(){
+		i ++;
+		$('#dinamic_field').append('<br id="enter'+i+'"><div id="row'+i+'" class="input-group"><input type="text" name="link[]" class="form-control" placeholder="Masukan URL with http/https"><span class="input-group-btn"><button class="btn btn-danger btn_remove" type="button" name="remove" id="'+i+'">Hapus</button>/div></td>');
+	});
+
+	$(document).on('click','.btn_remove', function(){
+		var button_id = $(this).attr("id");
+		const enter = "#enter"+button_id;
+		const row   = "#row"+button_id;
+		$(enter).remove()	
+		$(row).remove()	
+		
+	});
+
+
+</script>
 
 @endsection

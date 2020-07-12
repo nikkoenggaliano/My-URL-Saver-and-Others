@@ -30,15 +30,28 @@ Route::middleware(['auth'])->group(function(){
 		return view('users.dashboard');
 	})->name('user-dashboard');
 
-
+	# /user/
 	Route::prefix('user')->group(function(){
 		
 		Route::get('add-link', function(){
 			return view('users.add_link');	
 		})->name('user_add_link');
 
+		Route::get('view-my-link', function(){
+			return view('users.view_link');
+		})->name('user_my_view_link');
+
 		Route::post('add-link', 'UrlController@user_store')->name('user_post_add_link');
 	
+
+		# /user/api/
+		Route::prefix('api')->group(function(){
+
+			Route::get('get-my-link', 'ApiActionURL@get_my_link_api');
+			Route::get('get-detail-my-link/{id}', 'ApiActionURL@get_detail_link');
+
+		});
+
 	});
 
 });

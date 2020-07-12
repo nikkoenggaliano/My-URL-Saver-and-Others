@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>@yield('title')</title>
-
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 	<link href="{{ URL::asset('assets/css/icons/icomoon/styles.css')}}" rel="stylesheet" type="text/css">
@@ -33,6 +33,11 @@
 
 	<script type="text/javascript" src="{{ URL::asset('assets/js/core/app.js')}}"></script>
 	<script type="text/javascript" src="{{ URL::asset('assets/js/pages/dashboard.js')}}"></script>
+	<script type="text/javascript" src="{{ URL::asset('assets/js/plugins/tables/datatables/datatables.min.js')}}"></script>
+	<script type="text/javascript" src="{{ URL::asset('assets/js/plugins/forms/selects/select2.min.js')}}"></script>
+
+	<script type="text/javascript" src="{{ URL::asset('assets/js/core/app.js')}}"></script>
+	<script type="text/javascript" src="{{ URL::asset('assets/js/pages/datatables_basic.js')}}"></script>
 	<!-- /theme JS files -->
 
 </head>
@@ -201,6 +206,6 @@
 
 	</div>
 	<!-- /page container -->
-
+	@stack('scripts')
 </body>
 </html>
