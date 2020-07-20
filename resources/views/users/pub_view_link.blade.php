@@ -1,5 +1,5 @@
 @extends('template.template')
-@section('title', 'View Link')
+@section('title', 'Public Link for you')
 {{-- @section('dashboard', 'active') --}}
 
 @section('content')
@@ -25,7 +25,7 @@
 								  {!! session('error') !!}
 								</div>
 							@endif
-							Halo {{Auth::user()->username}} kamu memiliki tautan tersimpan sebanyak <code>{{ $total }}</code> buah yang kami sajikan pada <i>table</i> di bawah ini.
+							Halo {{Auth::user()->username}} kami memiliki tautan tersimpan yang dibagikan ke pada publik sebanyak <code>{{ $data->total_url }}</code> buah dari <code>{{$data->total_user}}</code> yang aktif, kami sajikan pada <i>table</i> di bawah ini.
 						</div>
 
 						<table class="table table-bordered table-hover datatable-highlight" id="my_table">
@@ -33,7 +33,6 @@
 								<tr>
 									<th>No</th>
 									<th>Judul</th>
-									<th class="text-center">Actions</th>
 							</thead>
 						</table>
 					</div>
@@ -78,20 +77,14 @@
 			var tdt = $('#my_table').DataTable({
 		        processing: true,
 		        serverSide: true,
-		        ajax: 'api/get-my-link',
+		        ajax: 'api/get-pub-link',
 		        columns: [
 		            { data: 'DT_RowIndex' },
 		            { data: 'name', render: function(data, type, row, meta){
-		            	//return '<a href="javascript:getDetailURL('+row['id']+');>'+data+'</a>';
-		            	return `<a href="javascript:getDetailURL(${row['id']})"><b>${data}</b></a>`;
-		            }},
-		            { data: 'edit', render:  function(data, type, row, meta){
-		            	var edited_url = '{{route('edit_url_get',['id' => ':id'])}}';
-		            	edited_url = edited_url.replace(':id', row['id']);
-		            	return '<ul class="icons-list"><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu9"></i></a><ul class="dropdown-menu dropdown-menu-right"><li><a href="'+edited_url+'"><i class="icon-file-pdf"></i> Edit Link</a></li><li><a href="#"><li><a href="#"><i class="icon-file-word"></i> View Link</a></li></ul></li></ul>';
-
-		            }, className: 'text-center',},
 		            
+		            	return `<a href="javascript:getDetailURL(${row['id']})"><b>${data}</b></a>`;
+		            }
+		        	},
 		        ],
 		    });
 		});

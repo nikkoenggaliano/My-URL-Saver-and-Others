@@ -16,25 +16,25 @@
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
-	<script type="text/javascript" src="{{ URL::asset('assets/js/plugins/loaders/pace.min.js')}}"></script>
+	{{-- <script type="text/javascript" src="{{ URL::asset('assets/js/plugins/loaders/pace.min.js')}}"></script> --}}
 	<script type="text/javascript" src="{{ URL::asset('assets/js/core/libraries/jquery.min.js')}}"></script>
 	<script type="text/javascript" src="{{ URL::asset('assets/js/core/libraries/bootstrap.min.js')}}"></script>
-	<script type="text/javascript" src="{{ URL::asset('assets/js/plugins/loaders/blockui.min.js')}}"></script>
+{{-- 	<script type="text/javascript" src="{{ URL::asset('assets/js/plugins/loaders/blockui.min.js')}}"></script> --}}
 	<!-- /core JS files -->
 
 	<!-- Theme JS files -->
-	<script type="text/javascript" src="{{ URL::asset('assets/js/plugins/visualization/d3/d3.min.js')}}"></script>
+{{-- 	<script type="text/javascript" src="{{ URL::asset('assets/js/plugins/visualization/d3/d3.min.js')}}"></script>
 	<script type="text/javascript" src="{{ URL::asset('assets/js/plugins/visualization/d3/d3_tooltip.js')}}"></script>
 	<script type="text/javascript" src="{{ URL::asset('assets/js/plugins/forms/styling/switchery.min.js')}}"></script>
 	<script type="text/javascript" src="{{ URL::asset('assets/js/plugins/forms/styling/uniform.min.js')}}"></script>
 	<script type="text/javascript" src="{{ URL::asset('assets/js/plugins/forms/selects/bootstrap_multiselect.js')}}"></script>
 	<script type="text/javascript" src="{{ URL::asset('assets/js/plugins/ui/moment/moment.min.js')}}"></script>
-	<script type="text/javascript" src="{{ URL::asset('assets/js/plugins/pickers/daterangepicker.js')}}"></script>
+	<script type="text/javascript" src="{{ URL::asset('assets/js/plugins/pickers/daterangepicker.js')}}"></script> --}}
 
 	<script type="text/javascript" src="{{ URL::asset('assets/js/core/app.js')}}"></script>
 	<script type="text/javascript" src="{{ URL::asset('assets/js/pages/dashboard.js')}}"></script>
 	<script type="text/javascript" src="{{ URL::asset('assets/js/plugins/tables/datatables/datatables.min.js')}}"></script>
-	<script type="text/javascript" src="{{ URL::asset('assets/js/plugins/forms/selects/select2.min.js')}}"></script>
+{{-- 	<script type="text/javascript" src="{{ URL::asset('assets/js/plugins/forms/selects/select2.min.js')}}"></script> --}}
 
 	<script type="text/javascript" src="{{ URL::asset('assets/js/core/app.js')}}"></script>
 	<script type="text/javascript" src="{{ URL::asset('assets/js/pages/datatables_basic.js')}}"></script>
@@ -127,7 +127,8 @@
 								<li>
 									<a href="#"><i class="icon-folder-open"></i> <span>Link Saver</span></a>
 									<ul>
-										<li><a href="#">My Link Saved</a></li>
+										<li><a href="{{ route('user_public_view_link') }}">Public URL</a></li>
+										<li><a href="{{ route('user_my_view_link') }}">My Link Saved</a></li>
 										<li><a href="{{ route('user_add_link') }}">Add Link</a></li>
 									</ul>
 								</li>
